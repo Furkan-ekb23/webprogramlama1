@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Görev Listesi</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main>
+    <h1>Görev Listesi</h1>
+
+    <form class="add" id="add-form">
+      <label for="new-task" class="sr" hidden>Yeni görev</label>
+      <input type="text" id="new-task" placeholder="Yeni görev yaz…" autocomplete="off" />
+      <button type="submit" class="primary">Ekle</button>
+    </form>
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+
+    <div class="filters" id="filters">
+      <button type="button" data-filter="all" aria-pressed="true">Tümü</button>
+      <button type="button" data-filter="active" aria-pressed="false">Yapılacak</button>
+      <button type="button" data-filter="done" aria-pressed="false">Biten</button>
+    </div>
+
+    <ul id="list"></ul>
+
+    <footer>
+      <span id="counter"></span>
+      <button type="button" id="clear-done" class="danger">Bitenleri temizle</button>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
