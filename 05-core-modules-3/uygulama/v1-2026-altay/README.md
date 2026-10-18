@@ -10,16 +10,16 @@
 
 | GitHub | İsim | Rol |
 |---|---|---|
-| [@saracmeltem](https://github.com/saracmeltem) |  Meltem Saraç | Uygulama (Canlı Kod) |
-| [@Furkan-ekb23](https://github.com/Furkan-ekb23) | Fazıl Furkan Ekberov | Tam Çeviri ve Mimari Slayt |
-| [@luziaaw](https://github.com/luziaaw) | Ayşe Nurcihan Akbaş | Sınıf İçi Sunum (Teori) |
-| [@YASIN-251903016](https://github.com/YASIN-251903016) | Muhammed Emin Yaşın | Soru-Cevap (QA) |
+| [@Furkan-ekb23](https://github.com/Furkan-ekb23) | Furkan | Uygulama (Canlı Kod) — *rolünü kontrol et* |
+| [@kullanici-adi](https://github.com/kullanici-adi) | İsim Soyisim | Tam Çeviri ve Mimari Slayt |
+| [@kullanici-adi](https://github.com/kullanici-adi) | İsim Soyisim | Sınıf İçi Sunum (Teori) |
+| [@kullanici-adi](https://github.com/kullanici-adi) | İsim Soyisim | Soru-Cevap (QA) |
 
 ## Ne yaptık?
 
 MDN'nin *Dynamic scripting with JavaScript* modülündeki konuları tek bir küçük uygulamada topladık. Framework ya da kütüphane kullanmadık, her şey düz JavaScript:
 
-- **HTML** (`main.html`): başlık, yeni görev formu, filtre düğmeleri, görev listesi ve alt bilgi (sayaç + "Bitenleri temizle").
+- **HTML** (`index.html`): başlık, yeni görev formu, filtre düğmeleri, görev listesi ve alt bilgi (sayaç + "Bitenleri temizle").
 - **CSS** (`style.css`): ortalanmış kart düzeni, `prefers-color-scheme` ile otomatik açık/koyu tema, telefona uyumlu genişlik (`max-width`) ve klavye kullanıcıları için `:focus-visible` çerçevesi.
 - **JavaScript** (`script.js`):
   1. Görev **ekleme**, **düzenleme**, **silme** ve **tamamlandı olarak işaretleme**.
@@ -52,14 +52,14 @@ MDN'nin *Dynamic scripting with JavaScript* modülündeki konuları tek bir kü�
 ```
 v1-2026-altay/
 ├── README.md
-├── main.html
+├── index.html
 ├── style.css
 └── script.js
 ```
 
 ## Nasıl çalıştırılır?
 
-**Yöntem 1 — Doğrudan:** `main.html` dosyasına çift tıklayıp tarayıcıda açın.
+**Yöntem 1 — Doğrudan:** `index.html` dosyasına çift tıklayıp tarayıcıda açın.
 
 **Yöntem 2 — Yerel sunucu (önerilen):**
 
@@ -68,7 +68,7 @@ cd v1-2026-altay
 python3 -m http.server 8000
 ```
 
-Tarayıcıda `http://localhost:8000/main.html` adresini açın. VS Code kullanıyorsanız `main.html`'e sağ tıklayıp **Live Preview: Show Preview** de seçebilirsiniz.
+Tarayıcıda `http://localhost:8000/index.html` adresini açın. VS Code kullanıyorsanız `index.html`'e sağ tıklayıp **Live Preview: Show Preview** de seçebilirsiniz.
 
 ## Denenebilecekler
 
