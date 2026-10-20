@@ -10,10 +10,10 @@
 
 | GitHub | İsim | Rol |
 |---|---|---|
-| [@Furkan-ekb23](https://github.com/Furkan-ekb23) | Furkan | Uygulama (Canlı Kod) — *rolünü kontrol et* |
-| [@kullanici-adi](https://github.com/kullanici-adi) | İsim Soyisim | Tam Çeviri ve Mimari Slayt |
-| [@kullanici-adi](https://github.com/kullanici-adi) | İsim Soyisim | Sınıf İçi Sunum (Teori) |
-| [@kullanici-adi](https://github.com/kullanici-adi) | İsim Soyisim | Soru-Cevap (QA) |
+| [@saracmeltem](https://github.com/saracmeltem) | Meltem Saraç | Uygulama (Canlı Kod) |
+| [@Furkan-ekb23](https://github.com/Furkan-ekb23) | Fazıl Furkan Ekberov | Tam Çeviri ve Mimari Slayt |
+| [@luziaaw](https://github.com/luziaaw) | Ayşe Nurcihan Akbaş | Sınıf İçi Sunum (Teori) |
+| [@YASIN-251903016](https://github.com/YASIN-251903016) | Muhammed Emin Yaşın | Soru-Cevap (QA) |
 
 ## Ne yaptık?
 
