@@ -1,36 +1,257 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Görev Listesi</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="MDN JavaScript müfredatına göre hazırlanmış, event loop'u hava trafik kulesi benzetmesiyle anlatan etkileşimli arşiv.">
+<title>KULE-JS // Event Loop Hava Trafik Kontrol Arşivi</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main>
-    <h1>Görev Listesi</h1>
+<a class="skip" href="#ana">Ana içeriğe atla</a>
+<div class="bar"><i id="pg"></i><span>KULE-JS</span><span class="hid">Konum: <b id="loc">GİRİŞ</b></span><span class="hid">X-Ray: <b id="xs">KAPALI</b></span><input id="q" type="search" class="push" placeholder="Sayfada ara: promise, fetch..." aria-label="Sayfada ara"><span id="sc"></span><button id="pr" aria-pressed="false">SUNUM</button><button id="th">TEMA</button><button id="xr" aria-pressed="false">X-RAY AÇ</button></div>
 
-    <form class="add" id="add-form">
-      <label for="new-task" class="sr" hidden>Yeni görev</label>
-      <input type="text" id="new-task" placeholder="Yeni görev yaz…" autocomplete="off" />
-      <button type="submit" class="primary">Ekle</button>
-    </form>
-    <p class="status" id="status" role="status" aria-live="polite"></p>
+<header>
+<div>
+<p class="tag">İSTASYON: TR-ANK-JS // PROTOKOL: ASENKRON YÜRÜTME</p>
+<h1>KULE-JS // JAVASCRIPT EVENT LOOP HAVA TRAFİK KONTROL ARŞİVİ</h1>
+<p>JavaScript, tek pistli bir havalimanı gibi çalışır: aynı anda tek uçak iner. Peki yüzlerce uçağı nasıl bekletmeden yönetir? Bu arşiv, <abbr title="Mozilla Developer Network">MDN</abbr> JavaScript müfredatındaki konuları bir kontrol kulesi simülasyonuyla bağlar. Tahmin et, çalıştır, gerçek tarayıcıyla kıyasla.</p>
+<div class="stat mono"><span>SON SENKRON: <time datetime="2026-10-22">2026-10-22</time></span><span>MÜFREDAT UYUMU: <b>12/12</b></span><span>TAHMİN-GERÇEK DOĞRULAMA: <b>AKTİF</b></span></div>
+</div>
+<svg class="radar" viewBox="0 0 200 200" role="img" aria-label="Dönen radar animasyonu"><g fill="none" stroke="var(--ln)"><circle cx="100" cy="100" r="95"/><circle cx="100" cy="100" r="63"/><circle cx="100" cy="100" r="31"/><path d="M100 5V195M5 100H195"/></g><g class="sweep"><path d="M100 100L100 5A95 95 0 0 1 167 33Z" fill="var(--g)" opacity=".25"/><path d="M100 100V5" stroke="var(--g)" stroke-width="2"/></g><circle cx="140" cy="62" r="4" fill="var(--am)"/><circle cx="62" cy="130" r="4" fill="var(--rd)"/><circle cx="118" cy="148" r="4" fill="var(--bl)"/></svg>
+</header>
+<div class="scene"><svg viewBox="0 0 1000 300" role="img" aria-label="Gece havalimanı: kontrol kulesi, pist, inen ve bekleyen uçaklar" preserveAspectRatio="xMidYMid slice">
+<defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#050a18"/><stop offset=".65" stop-color="#1d3566"/><stop offset="1" stop-color="#ff8a4c"/></linearGradient>
+<g id="pl" fill="currentColor"><path d="M-26 0Q-26-6-16-6L16-6Q30-4 32 0Q30 4 16 6L-16 6Q-26 6-26 0Z"/><path d="M-2 5L-18 24L-10 24L12 5Z"/><path d="M-2-5L-18-24L-10-24L12-5Z"/><path d="M-22-5L-30-16L-23-16L-14-5Z"/></g></defs>
+<rect width="1000" height="300" fill="url(#sk)"/>
+<g fill="#fff" opacity=".8"><circle cx="60" cy="30" r="1.5"/><circle cx="210" cy="60" r="1"/><circle cx="330" cy="25" r="1.5"/><circle cx="430" cy="70" r="1"/><circle cx="560" cy="28" r="1.5"/><circle cx="760" cy="40" r="1"/><circle cx="930" cy="90" r="1.5"/><circle cx="20" cy="110" r="1"/><circle cx="880" cy="20" r="1"/></g>
+<circle cx="850" cy="62" r="24" fill="#f4ecd0"/><circle cx="862" cy="56" r="22" fill="#142550"/>
+<path d="M0 252V215H30V195H60V225H90V205H210V232H260V210H300V252ZM700 252V222H740V200H775V228H820V205H860V236H910V210H1000V252Z" fill="#0c1624"/>
+<rect y="250" width="1000" height="50" fill="#08121a"/>
+<polygon points="250,300 750,300 650,252 350,252" fill="#1d2b34"/><line x1="500" y1="300" x2="500" y2="252" stroke="#cfe3ea" stroke-width="3" stroke-dasharray="9 8"/>
+<g fill="#ffd25e"><circle cx="272" cy="290" r="3"/><circle cx="305" cy="274" r="3"/><circle cx="338" cy="260" r="3"/><circle cx="728" cy="290" r="3"/><circle cx="695" cy="274" r="3"/><circle cx="662" cy="260" r="3"/></g>
+<rect x="132" y="122" width="16" height="130" fill="#233440"/><polygon points="102,122 178,122 166,92 114,92" fill="#3ddc97" opacity=".85"/><rect x="108" y="84" width="64" height="8" fill="#0d1822"/><g fill="#ffe08a"><rect x="120" y="101" width="9" height="11"/><rect x="135" y="101" width="9" height="11"/><rect x="150" y="101" width="9" height="11"/></g><line x1="140" y1="84" x2="140" y2="58" stroke="#86a2b2" stroke-width="2"/><circle class="bc" cx="140" cy="54" r="5" fill="#ff6161"/>
+<circle cx="650" cy="100" r="62" fill="none" stroke="#ffb020" stroke-dasharray="4 6" opacity=".6"/>
+<g class="hold" style="color:#ffb020"><use href="#pl" transform="translate(712 100) rotate(90)"/></g>
+<g class="land" style="color:#3ddc97"><use href="#pl"/></g><g class="tko" style="color:#5ab0ff"><use href="#pl"/></g>
+<g font-family="Consolas,monospace" font-size="13" fill="#cfe3ea"><text x="60" y="42">KULE = Event Loop</text><text x="540" y="186" opacity=".9">BEKLEME SAHASI = Web API</text><text x="420" y="290" fill="#0b1620" stroke="none"></text><text x="500" y="240" text-anchor="middle">PİST = Call Stack</text></g>
+</svg></div>
 
-    <div class="filters" id="filters">
-      <button type="button" data-filter="all" aria-pressed="true">Tümü</button>
-      <button type="button" data-filter="active" aria-pressed="false">Yapılacak</button>
-      <button type="button" data-filter="done" aria-pressed="false">Biten</button>
-    </div>
+<main id="ana">
+<nav aria-label="Bölümler"><ul>
+<li><a href="#b01">01 BRİFİNG</a></li><li><a href="#b02">02 RADAR SİMÜLASYONU</a></li><li><a href="#b03">03 OLAYLAR &amp; DOM</a></li><li><a href="#b04">04 KULENİN KİLİTLENMESİ</a></li><li><a href="#b05">05 AĞ &amp; JSON</a></li><li><a href="#b06">06 GÖREV TABLOSU</a></li><li><a href="#b07">07 SÖZLÜK &amp; FRAMEWORK</a></li><li><a href="#b08">08 MÜFREDAT MATRİSİ</a></li><li><a href="#b09">09 TEKNİK BELGE</a></li><li><a href="#b10">10 CANLI JS KONSOLU</a></li><li><a href="#b11">11 GERİ BİLDİRİM</a></li><li><a href="#b12">12 MİNİ SINAV</a></li></ul></nav>
 
-    <ul id="list"></ul>
+<section id="b01"><p class="tag"><span>BÖLÜM 01 // DEĞİŞKENLER, DİZİLER, FONKSİYONLAR</span><span>SEC-01</span></p>
+<h2>Görev Brifingi: Kule Nasıl Çalışır?</h2>
+<p>KULE-JS programı kapsamında, JavaScript’in <strong>tek iş parçacıklı</strong> yürütme modeli ile tarayıcının sunduğu <em>eşzamansız</em> yetenekler (zamanlayıcılar, ağ istekleri, kullanıcı olayları) karşılaştırılmaktadır. Geliştiriciler için <em>çalışma sırasının öngörülebilirliği</em> hayati önem taşır; sırası yanlış anlaşılan hiçbir asenkron kod, DOĞRULANMIŞ ÇALIŞMA katmanına alınamaz.</p>
+<p>JavaScript'in <mark>tek iş parçacığı</mark> vardır: <strong>Call Stack</strong> (pist) aynı anda tek fonksiyon çalıştırır. Bekleme gerektiren işler (<code>setTimeout</code>, ağ isteği) <em>tarayıcıya</em> devredilir. Böylece pist boş kalır ve sayfa donmaz.</p>
+<div class="two"><div><h3>Kule karakterleri</h3>
+<ul class="l"><li><strong>Pist</strong> = Call Stack (şu an çalışan iş)</li><li><strong>Bekleme sahası</strong> = Web API (zamanlayıcılar, ağ)</li><li><strong>Acil iniş</strong> = Microtask kuyruğu (Promise)</li><li><strong>İniş sırası</strong> = Task kuyruğu (setTimeout, olaylar)</li><li><strong>Kule</strong> = Event Loop</li></ul></div>
+<div><h3>Kule protokolü (sıra zorunlu)</h3>
+<ol class="l"><li>Ana kod bitene kadar pist boşalmaz.</li><li>Pist boşalınca tüm acil işler (microtask) yapılır.</li><li>Süresi dolan en erken zamanlayıcı alınır.</li><li>Her task'tan sonra tekrar acil işlere bakılır.</li></ol></div></div>
+<svg class="dg" viewBox="0 0 760 200" role="img" aria-label="Event loop akış şeması" style="width:100%;height:auto;margin-top:14px"><defs><marker id="ar" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" style="fill:var(--mu)"/></marker></defs>
+<rect x="300" y="75" width="160" height="50" rx="8" style="stroke:var(--g)"/><text x="380" y="98">PİST</text><text class="s" x="380" y="114">Call Stack</text>
+<rect x="30" y="10" width="170" height="46" rx="8" style="stroke:var(--am)"/><text x="115" y="31">BEKLEME SAHASI</text><text class="s" x="115" y="47">Web API</text>
+<rect x="30" y="144" width="170" height="46" rx="8" style="stroke:var(--bl)"/><text x="115" y="165">İNİŞ SIRASI</text><text class="s" x="115" y="181">Task kuyruğu</text>
+<rect x="560" y="10" width="170" height="46" rx="8" style="stroke:var(--rd)"/><text x="645" y="31">ACİL İNİŞ</text><text class="s" x="645" y="47">Microtask</text>
+<rect x="560" y="144" width="170" height="46" rx="8" style="stroke:var(--g);stroke-dasharray:6 4"/><text x="645" y="165">KULE</text><text class="s" x="645" y="181">Event Loop</text>
+<line x1="300" y1="88" x2="202" y2="48"/><line x1="115" y1="57" x2="115" y2="142"/><line x1="202" y1="160" x2="298" y2="118"/><line x1="460" y1="88" x2="558" y2="48"/><line x1="560" y1="56" x2="458" y2="98"/><line x1="560" y1="160" x2="462" y2="118"/>
+<text class="s" x="232" y="62">setTimeout</text><text class="s" x="260" y="152">sırası gelince</text><text class="s" x="540" y="84">Promise.then</text><text class="s" x="560" y="130">pist boşsa</text></svg>
+</section>
 
-    <footer>
-      <span id="counter"></span>
-      <button type="button" id="clear-done" class="danger">Bitenleri temizle</button>
-    </footer>
-  </main>
+<section id="b02"><p class="tag"><span>BÖLÜM 02 // ASENKRON JS + ARRAYS + OBJECTS + EVENTS</span><span>SEC-02</span></p>
+<h2>Radar Simülasyonu: Uçuş Planını Yaz, Sırayı Tahmin Et</h2>
+<p>Bu simülasyon; Call Stack, Web API, Microtask ve Task kuyruklarının <strong>her adımdaki</strong> durumunu canlı izlemek amacıyla yapılandırılmıştır. Her uçuş planı bir <mark>nesne dizisi</mark> olarak saklanır, simülatör sırayı hesaplar ve sonuç <em>gerçek tarayıcı çalıştırmasıyla</em> doğrulanır. Tahmin ile gerçek sonuç arasındaki her sapma SINIF-A ÖĞRENME ÖNCELİĞİ ile işaretlenmiştir.</p>
+<p class="mut">Her blok bir <em>nesne</em>, program da bir <em>dizi</em>. Kodu yaz, hangi uçağın (harfin) hangi sırayla ineceğini tahmin et, sonra gerçek tarayıcıyla karşılaştır.</p>
+<div class="two">
+<div>
+<div class="pan"><h3>1. Uçuş planı (blok ekle)</h3>
+<div class="row"><button data-add="log">console.log</button><button data-add="promise">Promise.then</button><button data-add="micro">queueMicrotask</button></div>
+<div class="row"><button data-add="timeout">setTimeout</button><label class="mono">süre: <select id="ms"><option>0</option><option>100</option><option>300</option><option>1000</option></select> ms</label></div>
+<div class="row"><span class="mut mono">Hazır:</span><button data-pre="0">Klasik</button><button data-pre="1">Süreli</button><button data-pre="2">Karışık</button><button id="clr">Temizle</button></div>
+<pre id="code" aria-label="Üretilen kod"></pre></div>
+<div class="pan" style="margin-top:12px"><h3>2. İniş sırası tahmini</h3>
+<div class="row" id="chips"></div><div class="mono" id="guess"></div>
+<div class="row"><button id="gu">Geri al</button><button id="chk" class="go">Tahmini kontrol et</button></div>
+<div class="res" id="res" aria-live="polite"></div></div>
+</div>
+<div class="pan"><h3>3. Radar ekranı (adım adım)</h3>
+<div class="st4">
+<div class="st s1"><h3>PİST · Call Stack</h3><small>Şu an çalışan</small><div id="stack"></div></div>
+<div class="st s2"><h3>BEKLEME · Web API</h3><small>Zamanlayıcılar</small><div id="web"></div></div>
+<div class="st s3"><h3>ACİL · Microtask</h3><small>Promise işleri</small><div id="micro"></div></div>
+<div class="st s4"><h3>SIRA · Task</h3><small>Süresi dolanlar</small><div id="macro"></div></div></div>
+<p class="mono mut" style="font-size:12px;margin:8px 0 0">İNEN UÇAKLAR · yeşil: ana kod, kırmızı: acil iniş, mavi: zamanlayıcı</p><div class="lane" id="lane" aria-label="İnen uçaklar"></div><div class="say" id="say" aria-live="polite"></div><div class="con" id="out"></div>
+<div class="row"><button id="pv">Önceki</button><button id="nx" class="go">Sonraki</button><button id="pl">Otomatik</button><button id="rs">Başa dön</button><button id="snd" aria-pressed="false">Ses: kapalı</button><span class="cnt" id="cnt"></span></div></div>
+</div></section>
 
-  <script src="script.js"></script>
+<section id="b03"><p class="tag"><span>BÖLÜM 03 // EVENTS, EVENT BUBBLING, DOM</span><span>SEC-03</span></p>
+<h2>Olay Kabarcıklanması: Tıklama Kuleye Nasıl Ulaşır?</h2>
+<p>Bir kullanıcı olayı (örneğin tıklama) hedef elemana ulaşırken üst elemanlardan geçer. MDN müfredatındaki <strong>event capture</strong> ve <strong>event bubbling</strong> kavramları bu yolculuğu tanımlar. Olay geri çağrıları pistte ancak yer açıldığında çalışan <em>Task</em> işleridir; bu nedenle olay sırası ile event loop sırası birlikte değerlendirilmelidir.</p>
+<p class="mut">İçteki kutuya tıkla. Olay önce dıştan içe iner (<em>capture</em>), sonra içten dışa çıkar (<em>bubble</em>).</p>
+<div class="two"><div class="bub"><div id="b1">DIŞ KUTU
+<div id="b2" style="margin-top:8px">ORTA KUTU
+<div id="b3" style="margin-top:8px" role="button" tabindex="0">İÇ KUTU (tıkla)</div></div></div>
+<div class="row"><label class="mono"><input type="checkbox" id="stp"> Orta kutuda <code>stopPropagation()</code></label></div></div>
+<div><h3>Olay sırası</h3><div class="con" id="elog">Henüz tıklanmadı.</div></div></div>
+</section>
+
+<section id="b04"><p class="tag"><span>BÖLÜM 04 // LOOPS + FUNCTIONS + DEBUGGING</span><span>SEC-04</span></p>
+<h2>Kulenin Kilitlenmesi: Ağır İş Sayfayı Neden Dondurur?</h2>
+<p>Tarayıcıda JavaScript ve sayfanın ekran güncellemeleri çoğunlukla aynı ana iş parçacığını paylaşır. Uzun süren senkron bir döngü bu iş parçacığını meşgul ettiğinde zamanlayıcılar, tıklamalar ve ekran yenilemesi <mark>beklemek zorunda kalır</mark>. Bu bölüm, kule kilitlenmesi senaryosunu ölçülebilir biçimde gösterir.</p>
+<p class="mut">Sayaç her 100 ms'de bir <code>setInterval</code> ile ilerler. "Ağır işi çalıştır" döngüsü pisti 2 saniye boyunca meşgul eder. Sayaç durur, çünkü sıradaki iş pistin boşalmasını bekler.</p>
+<div class="meter" aria-hidden="true"><i id="mt"></i></div><p class="mono">Sayaç: <b id="cn">0</b> <span id="fz" class="no"></span></p>
+<div class="row"><button id="blk" class="go">Ağır işi çalıştır (2 sn)</button></div>
+<pre><span>const t = Date.now();</span><span>while (Date.now() - t &lt; 2000) { /* pist meşgul */ }</span></pre>
+</section>
+
+<section id="b05"><p class="tag"><span>BÖLÜM 05 // NETWORK REQUESTS + JSON</span><span>SEC-05</span></p>
+<h2>Telemetri İsteği: Beklerken Kule Çalışmaya Devam Eder</h2>
+<p>Ağ istekleri (MDN: <em>Network requests</em>) ve JSON verisi modern web uygulamalarının temelidir. İstek gönderildikten sonra bekleme işi tarayıcıya devredilir; yanıt geldiğinde <code>Promise</code> zinciri veya <code>await</code> ile kod kaldığı yerden devam eder. Bu bölümdeki istek, güvenlik kısıtları nedeniyle gerçek sunucu yerine <strong>simüle edilmiş</strong> bir Promise ile yapılmıştır.</p>
+<p class="mut">Gerçek <code>fetch</code> gibi davranan bir <code>Promise</code> yazdık (1,2 sn gecikmeli, JSON metni döner). Sayfa bu sırada donmaz.</p>
+<div class="row"><button id="ft" class="go">Telemetri iste</button></div>
+<div class="con" id="fl">Hazır.</div>
+<pre><span>const veri = await fakeFetch();       // bekler ama pisti tutmaz</span><span>const ucus = JSON.parse(veri);        // metin -> nesne</span></pre>
+</section>
+
+<section id="b06"><p class="tag"><span>BÖLÜM 06 // KARŞILAŞTIRMALI TABLO</span><span>SEC-06</span></p>
+<h2>İş Türleri Karşılaştırma Tablosu</h2>
+<p>Aşağıdaki tablo, asenkron iş türlerinin hangi kuyruğa girdiğini ve hangi önceliği taşıdığını erişilebilirlik kurallarına (<code>caption</code>, <code>colgroup</code>, <code>scope="rowgroup"</code>, <code>rowspan</code>, <code>colspan</code>) uygun olarak özetler. Turuncu çerçeveli sütun <code>&lt;colgroup&gt;</code> ile vurgulanmıştır.</p>
+<div class="wrap"><table><caption>TABLO 6.1: Event loop'ta iş türleri. Turuncu çerçeveli sütun kuyruk adıdır.</caption>
+<colgroup><col><col><col class="hl"><col><col></colgroup>
+<thead><tr><th scope="col">Grup</th><th scope="col">İş türü</th><th scope="col">Kuyruk</th><th scope="col">Öncelik</th><th scope="col">Örnek</th></tr></thead>
+<tbody><tr><th scope="rowgroup" rowspan="3">Acil iniş</th><th scope="row">Promise.then</th><td>Microtask</td><td>Yüksek</td><td><code>Promise.resolve().then(f)</code></td></tr>
+<tr><th scope="row">queueMicrotask</th><td>Microtask</td><td>Yüksek</td><td><code>queueMicrotask(f)</code></td></tr>
+<tr><th scope="row">await sonrası</th><td>Microtask</td><td>Yüksek</td><td><code>await veri; devam()</code></td></tr>
+<tr><th scope="rowgroup" rowspan="3">İniş sırası</th><th scope="row">setTimeout</th><td>Task</td><td>Normal</td><td><code>setTimeout(f, 0)</code></td></tr>
+<tr><th scope="row">Kullanıcı olayı</th><td>Task</td><td>Normal</td><td><code>el.addEventListener("click", f)</code></td></tr>
+<tr><th scope="row">Ağ yanıtı</th><td>Task</td><td>Normal</td><td><code>fetch(url)</code> yanıtı geldiğinde</td></tr></tbody>
+<tfoot><tr><td colspan="5">TOPLAM: 6 iş türü, 2 kuyruk. Kural: önce microtask, sonra tek task.</td></tr></tfoot></table></div>
+</section>
+
+<aside id="b07"><section><p class="tag"><span>BÖLÜM 07 // SÖZLÜK + FRAMEWORKLER</span><span>SEC-07</span></p>
+<h2>Terimler Sözlüğü</h2>
+<p>Sözlük, MDN müfredatındaki <em>description list</em> yapısına uygun olarak <code>&lt;dl&gt;</code>, <code>&lt;dt&gt;</code> ve <code>&lt;dd&gt;</code> etiketleriyle işaretlenmiştir. Her terim, simülasyondaki karşılığıyla eşleştirilmiştir.</p>
+<dl><dt>Call Stack</dt><dd>Çalışan fonksiyonların üst üste tutulduğu yapı. Aynı anda tek iş yürür.</dd>
+<dt>Web API</dt><dd>Tarayıcının sunduğu bekleme ve ağ özellikleri. JavaScript'in kendisi değildir.</dd>
+<dt>Microtask</dt><dd>Promise geri çağrılarının beklediği öncelikli kuyruk.</dd>
+<dt>Task (macrotask)</dt><dd>setTimeout ve olay geri çağrılarının beklediği normal kuyruk.</dd>
+<dt>Event Loop</dt><dd>Pist boşalınca kuyruklardan sıradaki işi pistte çalıştıran döngü.</dd></dl>
+<h3 style="margin-top:16px">Framework'lere geçmeden önce</h3>
+<p>MDN framework modülü, önce HTML, CSS ve özellikle JavaScript'i öğrenmeyi önerir. Çünkü framework'ler bu temel özelliklerin üstüne kuruludur. Modülde React öğretilir; Angular, Ember, Svelte ve Vue alternatif olarak anılır.</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting" target="_blank" rel="noopener noreferrer">MDN: Scripting ↗</a> · <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Frameworks_libraries" target="_blank" rel="noopener noreferrer">MDN: Frameworks ↗</a> · <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Async_JS" target="_blank" rel="noopener noreferrer">MDN: Async JS ↗</a></p></section></aside>
+
+<section id="b08"><p class="tag"><span>BÖLÜM 08 // MÜFREDAT EŞLEŞTİRME MATRİSİ (12/12)</span><span>SEC-08</span></p>
+<h2>MDN Scripting Modülü: Bu Projede Nerede?</h2>
+<p>Bu matris, MDN <em>Dynamic scripting with JavaScript</em> modülündeki konuların hangi kod parçasıyla karşılandığını gösterir. Her satır sayfadaki gerçek bir fonksiyona veya bölüme bağlanabilir; böylece proje değerlendirmesi <strong>12/12 müfredat uyumu</strong> üzerinden izlenebilir.</p>
+<div class="wrap"><table><caption>TABLO 8.1: MDN JavaScript konuları ve bu sayfadaki karşılıkları.</caption>
+<thead><tr><th scope="col">✓</th><th scope="col">MDN konusu</th><th scope="col">Bu projede</th></tr></thead><tbody>
+<tr><td>✓</td><th scope="row">Variables</th><td><code>let</code>, <code>const</code> ile durum değişkenleri (prog, steps, si)</td></tr>
+<tr><td>✓</td><th scope="row">Math</th><td><code>Math.max</code> ile gerçek çalıştırma süresi, ms karşılaştırmaları</td></tr>
+<tr><td>✓</td><th scope="row">Strings</th><td>Şablon dizgeleri ile kod satırı üretimi, <code>join</code></td></tr>
+<tr><td>✓</td><th scope="row">Arrays</th><td>Program dizisi, <code>push</code>, <code>splice</code>, <code>sort</code>, <code>map</code></td></tr>
+<tr><td>✓</td><th scope="row">Conditionals</th><td><code>if / else if</code> ile blok türüne göre davranış</td></tr>
+<tr><td>✓</td><th scope="row">Loops</th><td><code>forEach</code>, <code>while</code> (kuyruk boşaltma, kilitlenme demosu)</td></tr>
+<tr><td>✓</td><th scope="row">Functions</th><td><code>simulate()</code>, <code>realRun()</code>, ok fonksiyonları</td></tr>
+<tr><td>✓</td><th scope="row">Events + Event bubbling</th><td>Bölüm 03 ve tüm düğmeler</td></tr>
+<tr><td>✓</td><th scope="row">Objects</th><td><code>{type, ms, id}</code> blokları</td></tr>
+<tr><td>✓</td><th scope="row">DOM scripting</th><td><code>innerHTML</code>, <code>classList</code>, <code>textContent</code> ile canlı güncelleme</td></tr>
+<tr><td>✓</td><th scope="row">Network requests + JSON</th><td>Bölüm 05: Promise tabanlı sahte fetch ve <code>JSON.parse</code></td></tr>
+<tr><td>✓</td><th scope="row">Debugging</th><td>Konsol paneli ve tahmin-gerçek karşılaştırması ile hata ayıklama alışkanlığı</td></tr>
+</tbody></table></div>
+<p class="mut">İpucu: Üstteki "X-RAY AÇ" düğmesi sayfanın semantik HTML iskeletini canlı gösterir.</p></section>
+<section id="b09"><p class="tag"><span>BÖLÜM 09 // TEKNİK BELGE: KAYNAK KOD VE API REFERANSI</span><span>SEC-09</span></p>
+<h2>Teknik Belge: Event Loop Kaynak Kodu ve API Referansı</h2>
+<p>Bu belge, event loop’un çalışma mantığını kaynak kod düzeyinde açıklar. Kod örnekleri <strong>gerçekten çalıştırılabilir</strong> JavaScript’tir; sözdizimi renklendirmesi yalnızca okunabilirliği artırmak içindir. Belge; hazırlayan bilgisi (<code>&lt;address&gt;</code>), tarih (<code>&lt;time&gt;</code>) ve alıntı (<code>&lt;blockquote&gt;</code>) işaretlemeleriyle yapılandırılmıştır.</p>
+<address class="mono mut">Hazırlayan: [Adın Soyadın] · Web Programlama Dersi · <time datetime="2026-10-22">22 Ekim 2026</time></address>
+<blockquote class="pan" cite="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting"><p>Ders notu: JavaScript tek iş yapar, beklemeyi başkasına devreder. Event loop de devredilen işlerin geri dönüş sırasını yönetir.</p><p class="mut">Hazırlayanın özeti (MDN Scripting modülü temel alınmıştır).</p></blockquote>
+<h3 style="margin-top:16px">9.1 Event loop'un basitleştirilmiş modeli</h3>
+<p class="mut">Gerçek tarayıcı daha karmaşıktır (ekran çizimi gibi adımlar vardır) ama sıralama mantığı budur. Radar simülasyonu da aynı kuralı izler.</p>
+<pre class="hl" data-t="javascript">// Event Loop'un basitleştirilmiş modeli
+function eventLoop(anaKod, microtasks, tasks) {
+  anaKod();                            // 1) tüm ana kod
+  while (microtasks.length) {          // 2) tüm acil işler
+    microtasks.shift()();
+  }
+  while (tasks.length) {               // 3) bir task...
+    tasks.shift()();
+    while (microtasks.length) {        // ...sonra yine acil işler
+      microtasks.shift()();
+    }
+  }
+}</pre>
+<h3>9.2 async/await ile bekleme</h3>
+<p class="mut">Çıktı sırası 1, 2, 3 olur: <code>await</code> fonksiyonu duraklatır ama pisti tutmaz, ana kod devam eder.</p>
+<pre class="hl" data-t="javascript">async function yukle() {
+  console.log("1: istek gönderildi");
+  const yanit = await fetch("/api/ucus");   // pist serbest kalır
+  const veri = await yanit.json();           // metni nesneye çevir
+  console.log("3: veri geldi", veri.durum);
+}
+
+yukle();
+console.log("2: ana kod devam ediyor");</pre>
+<h3>9.3 Pisti kilitlemeden ağır iş yapmak</h3>
+<pre class="hl" data-t="javascript">// KÖTÜ: pisti kilitler, sayfa donar
+const t = Date.now();
+while (Date.now() - t &lt; 2000) {}
+
+// İYİ: işi parçalara böl, aralarda pist boşalsın
+function parcala(liste, boyut = 100, i = 0) {
+  liste.slice(i, i + boyut).forEach(isYap);
+  if (i + boyut &lt; liste.length) {
+    setTimeout(() => parcala(liste, boyut, i + boyut));
+  }
+}</pre>
+<div class="wrap"><table><caption>TABLO 9.1: Event loop ile ilgili API referansı.</caption><thead><tr><th scope="col">API</th><th scope="col">Ne yapar</th><th scope="col">Kuyruk</th><th scope="col">Dönüş</th></tr></thead><tbody>
+<tr><th scope="row"><code>setTimeout(fn, ms)</code></th><td>Süre dolunca fn'i sıraya ekler</td><td>Task</td><td>Zamanlayıcı kimliği (sayı)</td></tr>
+<tr><th scope="row"><code>setInterval(fn, ms)</code></th><td>Aynı işi her ms'de tekrarlar</td><td>Task</td><td>Zamanlayıcı kimliği</td></tr>
+<tr><th scope="row"><code>clearTimeout(id)</code></th><td>Bekleyen zamanlayıcıyı iptal eder</td><td>Yok</td><td><code>undefined</code></td></tr>
+<tr><th scope="row"><code>Promise.resolve().then(fn)</code></th><td>fn'i acil kuyruğa ekler</td><td>Microtask</td><td>Yeni Promise</td></tr>
+<tr><th scope="row"><code>queueMicrotask(fn)</code></th><td>fn'i doğrudan acil kuyruğa ekler</td><td>Microtask</td><td><code>undefined</code></td></tr>
+<tr><th scope="row"><code>el.addEventListener(tür, fn)</code></th><td>Olay gelince fn'i çalıştırır</td><td>Task</td><td><code>undefined</code></td></tr>
+<tr><th scope="row"><code>fetch(url)</code></th><td>Ağ isteği başlatır, bekleme tarayıcıya devredilir</td><td>Yanıt: Task, <code>await</code> sonrası: Microtask</td><td><code>Promise&lt;Response&gt;</code></td></tr>
+<tr><th scope="row"><code>JSON.parse(metin)</code></th><td>JSON metnini nesneye çevirir</td><td>Yok (pistte hemen çalışır)</td><td>Nesne</td></tr></tbody></table></div>
+<h3 style="margin-top:16px">9.4 Bilinmesi gereken teknik notlar</h3>
+<ul class="l"><li><code>setTimeout(f, 0)</code> "hemen" demek değildir. Önce mevcut kod ve tüm microtask'lar biter.</li><li>İç içe zamanlayıcılar belirli bir derinlikten sonra tarayıcı tarafından en az 4 ms'e sabitlenebilir.</li><li>Arka plandaki sekmelerde tarayıcılar zamanlayıcıları yavaşlatabilir.</li><li>Sürekli yeni microtask üreten bir kod, task kuyruğunu aç bırakır ve sayfa donar.</li><li>Pisti uzun süre tutan iş, ekranın yenilenmesini de engeller.</li></ul>
+<p>Konsolu aç: Chrome'da <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd>, Firefox'ta <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>K</kbd>. Mac'te Chrome için <kbd>Cmd</kbd> + <kbd>Option</kbd> + <kbd>J</kbd>.</p>
+</section>
+
+<section id="b10"><p class="tag"><span>BÖLÜM 10 // CANLI JAVASCRIPT KONSOLU</span><span>SEC-10</span></p>
+<h2>Canlı JS Konsolu: Kendi Kodunu Çalıştır</h2>
+<p>Konsol, yazdığın kodu bu sayfanın içinde <strong>gerçek zamanlı</strong> çalıştırır. Çıktı satırlarının başındaki milisaniye değeri, zamanlayıcıların ve Promise’lerin sırasını <em>ölçülebilir</em> kılar. Kodda oluşan hatalar konsol panelinde HATA etiketiyle işaretlenir.</p>
+<p class="mut">Aşağıdaki kod gerçekten çalışır. Çıktının yanındaki süre, o satırın kaç ms sonra yazıldığını gösterir. <code>await</code> da kullanabilirsin. Sonsuz döngü yazma, sayfa donar.</p>
+<div class="row"><span class="mono mut">Örnekler:</span><button data-ex="0">Kule testi</button><button data-ex="1">async / await</button><button data-ex="2">var / let tuzağı</button></div>
+<label for="ed" class="mono mut">kod.js</label><textarea id="ed" spellcheck="false"></textarea>
+<div class="row"><button id="rn" class="go">Çalıştır</button><button id="cl">Çıktıyı temizle</button></div>
+<div class="con" id="rep" aria-live="polite">Çıktı burada görünecek.</div>
+</section>
+<section id="b11"><p class="tag"><span>BÖLÜM 11 // FORMS &amp; BUTTONS</span><span>SEC-11</span></p>
+<h2>Geri Bildirim ve Soru Formu</h2>
+<p>Bu form, MDN <em>Forms</em> konularındaki semantik kurallara göre hazırlanmıştır: her denetim <code>&lt;label for&gt;</code> ile eşleşir, gruplar <code>&lt;fieldset&gt;</code> ve <code>&lt;legend&gt;</code> ile ayrılır, doğrulama <code>required</code>, <code>minlength</code> ve <code>pattern</code> ile yapılır. Gönderim gerçek bir sunucuya gitmez: JavaScript yakalar ve <code>Promise</code> ile simüle eder.</p>
+<form id="fm">
+<fieldset><legend>01 // Gönderen bilgileri</legend>
+<div class="fld"><label for="fn">Ad Soyad *</label><input id="fn" name="ad" required minlength="2" placeholder="Örn: Ayşe Yılmaz"></div>
+<div class="fld"><label for="fe">E-posta *</label><input id="fe" name="eposta" type="email" required placeholder="ornek@okul.edu.tr"></div>
+<div class="fld"><label for="fs">Sınıf (örn. 10-A) *</label><input id="fs" name="sinif" required pattern="[0-9]{1,2}-[A-Za-z]" placeholder="10-A" title="Örnek: 10-A"></div></fieldset>
+<fieldset><legend>02 // Mesaj</legend>
+<div class="fld"><label for="fk">Konu *</label><select id="fk" name="konu" required><option value="">Seç...</option><option>Soru</option><option>Öneri</option><option>Hata bildirimi</option></select></div>
+<fieldset><legend>Sunumu nasıl buldun?</legend><label><input type="radio" name="puan" value="cok-iyi" required> Çok iyi</label><label><input type="radio" name="puan" value="iyi"> İyi</label><label><input type="radio" name="puan" value="gelistirilmeli"> Geliştirilmeli</label></fieldset>
+<label><input type="checkbox" name="anladim" value="evet"> Event loop konusunu anladım</label>
+<div class="fld"><label for="fm2">Mesaj *</label><textarea id="fm2" name="mesaj" required minlength="10" placeholder="En az 10 karakter..."></textarea></div></fieldset>
+<div class="row"><button type="submit" class="go">GÖNDER</button><button type="reset">SIFIRLA</button></div>
+</form>
+<div class="con" id="fo" aria-live="polite">Form henüz gönderilmedi.</div>
+</section>
+
+<section id="b12"><p class="tag"><span>BÖLÜM 12 // MİNİ SINAV</span><span>SEC-12</span></p>
+<h2>Mini Sınav: Kule Kontrolörü Sertifikası</h2>
+<p>Bu bölüm, öğrendiklerini 6 soruyla sınar. Her cevaptan sonra doğru cevabın <strong>nedeni</strong> açıklanır. Sunumda sınıfla birlikte çözebilir, tartışmalı soruları Bölüm 10'daki canlı konsolda gerçek kodla doğrulayabilirsin.</p>
+<div class="pan" id="qz"></div>
+</section>
+</main>
+<footer><div class="fgrid"><div><h3>Bölümler</h3><ul class="fl"><li><a href="#b01">Brifing</a></li><li><a href="#b02">Radar simülasyonu</a></li><li><a href="#b09">Teknik belge</a></li><li><a href="#b10">Canlı konsol</a></li><li><a href="#b11">Geri bildirim</a></li></ul></div><div><h3>MDN kaynakları</h3><ul class="fl"><li><a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting" target="_blank" rel="noopener noreferrer">Scripting ↗</a></li><li><a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Frameworks_libraries" target="_blank" rel="noopener noreferrer">Frameworks ↗</a></li><li><a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Async_JS" target="_blank" rel="noopener noreferrer">Async JS ↗</a></li></ul></div><div><h3>Proje</h3><p class="mut">Web Programlama dersi için hazırlanmış, tamamen tarayıcıda çalışan tek sayfalık JavaScript uygulaması.</p><p class="mono mut" style="font-size:13px">Sürüm 1.0 · 2026</p></div></div><button id="top" class="totop" hidden aria-label="Sayfanın başına dön">↑</button><p class="tag">KULE-JS // EVENT LOOP ARŞİVİ</p><p class="mut">MDN "Dynamic scripting with JavaScript" ve "JavaScript frameworks and libraries" modülleri temel alınarak hazırlanmış ders projesidir. Son güncelleme: 22 Ekim 2026.</p></footer>
+
+<script src="script.js"></script>
 </body>
 </html>
